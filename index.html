@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>French Pronunciation Wiki</title>
+<meta name="description" content="An LLM Wiki on French pronunciation basics and the 15-slide beginner deck built from it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* same postcard palette as the deck so the two pages feel like one trip */
+:root { color-scheme: light; --bg:#FFF5D6; --card:#FFFDF9; --ink:#221C3D; --muted:#5F5878; --rose:#FFC9D7; --mint:#BDEBD6; --butter:#FFE699; --sky:#C9DBFF; --lilac:#DCCDFF; --bleu:#2F4FD8; --rouge:#E5474F; --shadow:#221C3D; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); background-image: radial-gradient(color-mix(in srgb, var(--ink) 9%, transparent) 1px, transparent 1px); background-size: 22px 22px; color: var(--ink); font-family: "Inter", system-ui, sans-serif; line-height: 1.55; }
+.stripe { height: 8px; background: linear-gradient(90deg, var(--bleu) 0 33%, var(--card) 33% 66%, var(--rouge) 66%); background-size: 48px 100%; border-bottom: 2px solid var(--ink); }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 48px 24px 64px; }
+.kicker { display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; background: var(--butter); border: 2px solid var(--ink); border-radius: 999px; padding: 4px 14px; }
+h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: clamp(2.4rem, 7vw, 4.6rem); line-height: .98; letter-spacing: -.02em; margin-top: 18px; }
+h1 span { background: linear-gradient(transparent 60%, var(--rose) 60%, var(--rose) 92%, transparent 92%); }
+h2 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: clamp(1.5rem, 3.4vw, 2rem); margin: 56px 0 16px; }
+.intro { color: var(--muted); font-size: 1.12rem; max-width: 60ch; margin-top: 18px; }
+.cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+.btn { display: inline-block; padding: 11px 22px; border-radius: 999px; text-decoration: none; font-weight: 700; border: 2.5px solid var(--ink); color: var(--ink); background: var(--card); box-shadow: 4px 4px 0 var(--shadow); }
+.btn:hover { background: var(--butter); }
+.btn.main { background: var(--rouge); color: #fff; }
+.btn:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--shadow); }
+
+/* stats as luggage tags */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 40px; }
+.stat { border: 2.5px solid var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 5px 5px 0 var(--shadow); }
+.stat:nth-child(1) { background: var(--sky); } .stat:nth-child(2) { background: var(--rose); } .stat:nth-child(3) { background: var(--mint); } .stat:nth-child(4) { background: var(--butter); } .stat:nth-child(5) { background: var(--lilac); }
+.stat b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 2.2rem; line-height: 1; }
+.stat span { font-size: .9rem; font-weight: 600; }
+
+/* the lesson route: 15 stops like a metro line */
+.route { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px 18px; counter-reset: stop; }
+.route li { counter-increment: stop; display: flex; gap: 12px; align-items: baseline; background: var(--card); border: 2px solid var(--ink); border-radius: 12px; padding: 8px 12px; }
+.route li::before { content: counter(stop, decimal-leading-zero); font-weight: 800; font-size: .8rem; background: var(--ink); color: var(--card); border-radius: 999px; padding: 1px 8px; flex: none; }
+.route li small { margin-left: auto; color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
+.note { color: var(--muted); font-size: .92rem; margin-top: 12px; }
+
+.table-wrap { overflow-x: auto; border: 2.5px solid var(--ink); border-radius: 16px; box-shadow: 5px 5px 0 var(--shadow); background: var(--card); }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { text-align: left; padding: 12px 14px; border-bottom: 2px dashed color-mix(in srgb, var(--ink) 25%, transparent); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+th { font-size: .74rem; text-transform: uppercase; letter-spacing: .1em; background: var(--sky); border-bottom: 2.5px solid var(--ink); }
+td:last-child { font-weight: 700; }
+a { color: var(--bleu); font-weight: 600; }
+ul.links { display: grid; gap: 8px; padding-left: 1.2em; }
+footer { margin-top: 64px; color: var(--muted); font-size: .85rem; border-top: 2px dashed color-mix(in srgb, var(--ink) 30%, transparent); padding-top: 18px; }
+@media (max-width: 600px) { .wrap { padding: 32px 16px 48px; } .route { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="stripe"></div>
+<div class="wrap">
+  <span class="kicker">Bonjour · a beginner's guide</span>
+  <h1>French <span>pronunciation</span>,<br>from wiki to slides</h1>
+  <p class="intro">An LLM Wiki on French pronunciation basics, built "discuss first, generate after" from 6 sources,
+  then turned into a 15-slide teaching deck for total beginners. Every example word comes with an English-style
+  respelling, IPA, and a 🔊 button so you can hear it.</p>
+  <div class="cta">
+    <a class="btn main" href="topic-pronunciation/deck.html">Open the deck</a>
+    <a class="btn" href="https://github.com/lakeofpeppi/GEN_AI_French-Pronunciation-Wiki/tree/main/wiki">Browse the wiki</a>
+    <a class="btn" href="https://github.com/lakeofpeppi/GEN_AI_French-Pronunciation-Wiki#readme">How it was built</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>6</b><span>sources ingested</span></div>
+    <div class="stat"><b>14</b><span>concept pages</span></div>
+    <div class="stat"><b>93</b><span>quotes checked vs. source text</span></div>
+    <div class="stat"><b>4</b><span>tricky spots where sources differ</span></div>
+    <div class="stat"><b>15</b><span>slides, each with sources</span></div>
+  </div>
+
+  <h2>The lesson route</h2>
+  <ol class="route">
+    <li>French doesn't sound like it looks <small>hook</small></li>
+    <li>Reading French = patterns + IPA <small>what it is</small></li>
+    <li>Rule 1: the end of a word is often silent <small>rule</small></li>
+    <li>Rule 2: the disappearing e <small>rule</small></li>
+    <li>Vowel letter combos <small>how it works</small></li>
+    <li>The u sound English doesn't have <small>how it works</small></li>
+    <li>Nasal vowels: say it through your nose <small>how it works</small></li>
+    <li>The French r, h and j <small>how it works</small></li>
+    <li>What accents do <small>rule</small></li>
+    <li>Liaison: linking words together <small>rule</small></li>
+    <li>Rhythm: no word stress <small>how it works</small></li>
+    <li>Read one sentence, step by step <small>example</small></li>
+    <li>Top 4 beginner mistakes <small>pitfalls</small></li>
+    <li>Summary <small>summary</small></li>
+    <li>Quick quiz <small>quiz</small></li>
+  </ol>
+  <p class="note">Hook → what it is → rules &amp; how sounds work → worked example → pitfalls → summary → quiz.</p>
+
+  <h2>Where the sources disagree</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Question</th><th>Sources say</th><th>Deck says</th></tr>
+    <tr><td>3 or 4 nasal vowels?</td><td>S2: 4 · S3: standard French has up to 4, but most Paris speakers merge un into in (so not a real conflict, the AI review caught this)</td><td>Up to 4, but you'll often hear 3</td></tr>
+    <tr><td>Are final c, r, f, l pronounced?</td><td>S2: yes (CaReFuL) · but -er words like parler have silent r</td><td>Rule of thumb with exceptions</td></tr>
+    <tr><td>Make optional liaisons?</td><td>S6: formal grammars say yes, casual speech skips · S1: follow the recording</td><td>Always the mandatory ones only</td></tr>
+    <tr><td>What is French stress?</td><td>S3: linguists disagree, but all agree it never changes meaning</td><td>Light stress at the end of a group</td></tr>
+  </table></div>
+
+  <h2>Behind the scenes</h2>
+  <ul class="links">
+    <li><a href="https://github.com/lakeofpeppi/GEN_AI_French-Pronunciation-Wiki#readme">README</a>: the workflow graph (flowchart), the real run, and my reflection</li>
+    <li><a href="https://github.com/lakeofpeppi/GEN_AI_French-Pronunciation-Wiki/blob/main/topic-pronunciation/report.md">report.md</a>: the run log · <a href="https://github.com/lakeofpeppi/GEN_AI_French-Pronunciation-Wiki/blob/main/wiki/log.md">wiki/log.md</a>: ingest and lint log</li>
+    <li><a href="https://github.com/lakeofpeppi/GEN_AI_French-Pronunciation-Wiki/blob/main/discussion.md">discussion.md</a>: the interview before anything was generated · <a href="https://github.com/lakeofpeppi/GEN_AI_French-Pronunciation-Wiki/blob/main/AGENTS.md">AGENTS.md</a>: the rules</li>
+  </ul>
+  <footer>Sources: Pressbooks <em>Introduction to French Level I</em> (CC BY 4.0), Duolingo Blog, and Wikipedia (French phonology, Help:IPA/French, French orthography, Liaison), each cited by section on every slide. Built for the TAICA Generative AI course.</footer>
+</div>
+</body>
+</html>

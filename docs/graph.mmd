@@ -1,0 +1,42 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, DejaVu Sans, sans-serif","fontSize":"15px","primaryTextColor":"#221C3D","lineColor":"#221C3D","clusterBkg":"#FFF8F0","clusterBorder":"#221C3D"},"flowchart":{"curve":"basis","nodeSpacing":26,"rankSpacing":30,"padding":14}}}%%
+flowchart LR
+  subgraph A["① BUILD THE WIKI  (repeats 6×, once per source)"]
+    direction TB
+    SRC([6 sources S1–S6]):::src --> ING[INGEST one source<br/>→ source page + concept pages]:::node
+    ING --> G0{{"G0 wiki lint<br/>section exists? quote really in source?<br/><b>(check moved here)</b>"}}:::moved
+    G0 -- "fail: fix that page" --> ING
+    G0 -- pass --> WIKI[(LLM Wiki<br/>14 concepts · 93 quotes)]:::wiki
+  end
+
+  subgraph B["② MAKE THE DECK  (wiki is the only source)"]
+    direction TB
+    N1[N1 retrieve relevant pages]:::node --> G1{{"G1 coverage: ≥ 3 pages?<br/>fail → STOP, ingest more"}}:::gate
+    G1 -- pass --> N2[N2 evidence cards<br/>copy points + quotes]:::node
+    N2 --> G2{{"G2 cards: quotes real<br/>+ card complete <b>(new)</b>"}}:::moved
+    G2 -- "fail: redo that card" --> N2
+    G2 -- pass --> N3[N3 outline: hook → rules → example<br/>→ pitfalls → summary → quiz]:::node
+    N3 --> G3{{"G3 outline: 8–15 slides, all sections<br/>topic missing → back to N1"}}:::gate
+    G3 -- "fail: fix outline" --> N3
+  end
+
+  subgraph C["③ CHECK WHAT WE SHOW"]
+    direction TB
+    N4[N4 draft each slide<br/>from its own cards only]:::node --> G4{{"G4 slides: cites from own cards,<br/>respelling + IPA + 🔊, ≤ 60 words"}}:::gate
+    G4 -- "fail: redraft only that slide" --> N4
+    G4 -- pass --> N5[N5 render HTML<br/>layout only, same words]:::node
+    N5 --> G5{{"G5 browser: desktop + phone,<br/>no overflow, 🔊 never silent"}}:::gate
+    G5 -- "fail: fix layout" --> N5
+    G5 -- pass --> H[/H human: look + listen/]:::human
+    H -- "layout issue" --> N5
+    H --> N6[N6 AI review in a fresh chat<br/>unfaithful slide → back to N4]:::human
+    N6 --> OUT([deck.html + report.md]):::src
+  end
+
+  A ==> B ==> C
+
+  classDef src fill:#FFE699,stroke:#221C3D,stroke-width:2.5px
+  classDef node fill:#FFFDF9,stroke:#221C3D,stroke-width:2.5px
+  classDef wiki fill:#BDEBD6,stroke:#221C3D,stroke-width:2.5px
+  classDef gate fill:#C9DBFF,stroke:#221C3D,stroke-width:2.5px,stroke-dasharray:6 4
+  classDef moved fill:#FFC9D7,stroke:#E5474F,stroke-width:3px,stroke-dasharray:6 4
+  classDef human fill:#DCCDFF,stroke:#221C3D,stroke-width:2.5px

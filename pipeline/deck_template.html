@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>French Pronunciation in 15 Slides</title>
+<meta name="description" content="A beginner's teaching deck on French pronunciation, built from an LLM Wiki of 6 sources.">
+<!-- preconnect first or the fonts pop in late and the slide jumps -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* travel-poster palette: pastel paper colours + one bold ink for borders and text */
+:root {
+  color-scheme: light;  /* always the light postcard look, even on dark-mode macs */
+  --bg: #FFF5D6;
+  --card: #FFFDF9;
+  --ink: #221C3D;
+  --muted: #5F5878;
+  --rose: #FFC9D7;
+  --mint: #BDEBD6;
+  --butter: #FFE699;
+  --sky: #C9DBFF;
+  --lilac: #DCCDFF;
+  --bleu: #2F4FD8;
+  --rouge: #E5474F;
+  --shadow: #221C3D;
+  --accent: var(--sky);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  /* faint dots like postcard paper, purely decoration */
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 9%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  overflow: hidden; /* the deck scrolls slide by slide, not the page */
+}
+
+.deck { position: relative; height: 100%; }
+/* only the current slide is shown, the rest wait off-stage */
+.slide {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(1040px, 100% - 40px);
+  height: min(620px, 100% - 100px);
+  top: -44px;
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: 24px;
+  box-shadow: 9px 9px 0 var(--shadow);  /* the hard offset shadow is what makes pastel look bold */
+  padding: 0 52px 60px;
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+.slide.on { display: flex; }
+/* each slide gets its own pastel, cycling like a stack of postcards */
+.slide:nth-of-type(5n+1) { --accent: var(--sky); }
+.slide:nth-of-type(5n+2) { --accent: var(--rose); }
+.slide:nth-of-type(5n+3) { --accent: var(--mint); }
+.slide:nth-of-type(5n+4) { --accent: var(--butter); }
+.slide:nth-of-type(5n+5) { --accent: var(--lilac); }
+
+/* the top strip looks like a ticket: coloured band, dashed tear line under it */
+.count {
+  margin: 0 -52px 6px;
+  padding: 14px 52px 12px;
+  background: var(--accent);
+  border-bottom: 3px dashed var(--ink);
+  font-size: .78rem; letter-spacing: .18em; font-weight: 700; text-transform: uppercase;
+}
+.count::before { content: "Leçon · "; }
+/* postage stamp in the corner, decoration only */
+.slide::after {
+  content: "FR";
+  position: absolute; top: 9px; right: 22px;
+  width: 50px; height: 58px;
+  display: grid; place-items: center;
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--ink);
+  background: var(--card);
+  border: 3px dotted var(--ink);
+  border-radius: 6px;
+  transform: rotate(6deg);
+}
+h2 {
+  font-family: "Bricolage Grotesque", "Inter", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3.8vw, 2.6rem);
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  max-width: 88%;
+}
+/* a thick highlighter swipe behind the last line of the title */
+h2 { background: linear-gradient(transparent 62%, var(--accent) 62%, var(--accent) 92%, transparent 92%);
+  display: inline; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.title-wrap { margin-top: 4px; }
+.lead { font-size: 1.2rem; font-weight: 600; }
+ul, ol { padding-left: 1.3em; display: grid; gap: 8px; font-size: clamp(1rem, 1.9vw, 1.18rem); line-height: 1.45; }
+li::marker { color: var(--rouge); font-weight: 800; }
+strong { background: var(--accent); padding: 0 4px; border-radius: 4px; }
+code { background: var(--accent); border: 1.5px solid var(--ink); padding: 0 6px; border-radius: 6px; font-size: .9em; }
+.warn { display: inline-block; background: var(--rouge); color: #fff; font-size: .72em; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 1px 9px; margin-right: 4px; vertical-align: .12em; }
+li:has(.warn) { background: var(--butter); border: 2px solid var(--ink); border-radius: 12px; padding: 6px 12px; margin-left: -12px; list-style-position: inside; }
+
+.examples { display: grid; gap: 8px; margin-top: 2px; }
+.ex {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  background: color-mix(in srgb, var(--accent) 55%, var(--card));
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  padding: 6px 14px;
+}
+.say {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 2.5px solid var(--ink); background: var(--rouge); color: #fff;
+  font-size: 1rem; cursor: pointer;
+  box-shadow: 2px 2px 0 var(--shadow);
+  transition: transform .1s;
+}
+.say:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--shadow); }
+.say:active { transform: translate(2px, 2px); box-shadow: none; }
+.say.speaking { background: var(--bleu); }
+.fr { font-weight: 700; font-size: 1.12rem; }
+.resp { color: var(--muted); font-weight: 500; }
+/* ipa needs a font with all the phonetic letters, inter doesn't have ʁ or the tildes */
+.ipa { font-family: "Noto Sans", "Segoe UI", sans-serif; color: var(--bleu); font-size: .95rem; }
+
+.answers summary { cursor: pointer; display: inline-block; font-weight: 700; background: var(--accent); border: 2px solid var(--ink); border-radius: 999px; padding: 4px 14px; box-shadow: 2px 2px 0 var(--shadow); }
+.answers ol { margin-top: 12px; font-size: 1.05rem; }
+.notes { display: none; font-size: .9rem; color: var(--muted); border-left: 4px solid var(--rouge); padding-left: 12px; }
+body.show-notes .notes { display: block; }
+
+.src {
+  position: absolute; left: 52px; right: 52px; bottom: 14px;
+  font-size: .74rem; line-height: 1.4; color: var(--muted);
+  /* wrap instead of "…", a cut-off source is a hidden source */
+}
+.src a { color: var(--muted); text-decoration: underline dotted; }
+
+/* bottom bar: buttons + progress */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; height: 64px; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 0 16px; }
+.bar button { border: 2.5px solid var(--ink); background: var(--card); color: var(--ink); border-radius: 999px; padding: 7px 18px; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 0 var(--shadow); }
+.bar button:hover { background: var(--butter); }
+.bar button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--shadow); }
+/* progress bar in bleu-blanc-rouge stripes */
+.progress { position: fixed; top: 0; left: 0; height: 6px; background: linear-gradient(90deg, var(--bleu) 0 33%, var(--card) 33% 66%, var(--rouge) 66%); background-size: 36px 100%; border-bottom: 2px solid var(--ink); transition: width .25s; }
+.help { position: fixed; top: 16px; right: 20px; font-size: .78rem; color: var(--muted); font-weight: 500; }
+.voice-msg { position: fixed; top: 14px; left: 18px; right: 18px; margin: 0 auto; max-width: 520px; text-align: center; font-size: .82rem; font-weight: 600; color: var(--ink); background: var(--butter); border: 2px solid var(--ink); border-radius: 999px; padding: 4px 14px; display: none; z-index: 2; }
+
+@media (max-width: 700px) {
+  .slide { padding: 0 20px 56px; top: -40px; height: calc(100% - 96px); width: calc(100% - 32px); overflow-y: auto; box-shadow: 5px 5px 0 var(--shadow); }
+  .count { margin: 0 -20px 6px; padding: 12px 20px 10px; }
+  .slide::after { display: none; }
+  h2 { max-width: 100%; }
+  .ex { grid-template-columns: 40px 1fr; gap: 2px 12px; padding: 8px 12px; }
+  .ex .say { grid-row: span 3; align-self: center; }
+  .ex .resp, .ex .ipa { grid-column: 2; }
+  /* on phones the slide scrolls, so the footer joins the flow instead of floating over the words */
+  .src { position: static; margin-top: auto; padding-top: 10px; white-space: normal; }
+  .help { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<p class="help">← → to move · N for teacher notes</p>
+<p class="voice-msg" id="voiceMsg">No French voice on this device, so 🔊 may be silent or sound English.</p>
+<main class="deck" id="deck">
+{{SLIDES}}
+</main>
+<nav class="bar">
+  <button id="prev" aria-label="previous slide">← Prev</button>
+  <button id="notesBtn">Notes</button>
+  <button id="next" aria-label="next slide">Next →</button>
+</nav>
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+let cur = 0;
+
+function show(i) {
+  cur = Math.max(0, Math.min(slides.length - 1, i));  // clamp so we never go past the ends
+  slides.forEach((s, k) => s.classList.toggle('on', k === cur));
+  document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
+  history.replaceState(null, '', '#' + (cur + 1));  // remember to mark the recent slide in the url so refresh keeps your place
+}
+
+// start on the slide in the url, e.g. deck.html#7
+show((parseInt(location.hash.slice(1), 10) || 1) - 1);
+
+document.getElementById('prev').onclick = () => show(cur - 1);
+document.getElementById('next').onclick = () => show(cur + 1);
+document.getElementById('notesBtn').onclick = () => document.body.classList.toggle('show-notes');
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') show(cur + 1);
+  if (e.key === 'ArrowLeft') show(cur - 1);
+  if (e.key === 'Home') show(0);
+  if (e.key === 'End') show(slides.length - 1);
+  if (e.key.toLowerCase() === 'n') document.body.classList.toggle('show-notes');
+});
+
+// swipe on phones: remember where the finger started, compare where it ends
+let startX = null;
+document.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+document.addEventListener('touchend', e => {
+  if (startX === null) return;
+  const dx = e.changedTouches[0].clientX - startX;
+  if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+  startX = null;
+});
+
+// 🔊 uses the browser's built-in voices, voices load late so we look again when they change
+let frVoice = null;
+function pickVoice() {
+  const voices = speechSynthesis.getVoices();
+  frVoice = voices.find(v => v.lang === 'fr-FR') || voices.find(v => v.lang.startsWith('fr')) || null;
+}
+if ('speechSynthesis' in window) {
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+}
+document.querySelectorAll('.say').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const msg = document.getElementById('voiceMsg');
+    if (!('speechSynthesis' in window)) { msg.style.display = 'block'; return; }
+    pickVoice();
+    // the bug g5 caught: with zero voices the button did nothing and said nothing.
+    // now we warn whenever there's no french voice, even if there are no voices at all
+    if (!frVoice) msg.style.display = 'block';
+    speechSynthesis.cancel();  // stop the previous word first or they pile up
+    const u = new SpeechSynthesisUtterance(btn.dataset.say.replace(/\s*\/\s*/g, ', '));  // "parle / parles" reads as a list
+    u.lang = 'fr-FR';
+    if (frVoice) u.voice = frVoice;
+    u.rate = 0.8;  // a bit slower so beginners can hear each sound
+    btn.classList.add('speaking');
+    u.onend = u.onerror = () => btn.classList.remove('speaking');
+    speechSynthesis.speak(u);
+  });
+});
+</script>
+</body>
+</html>
