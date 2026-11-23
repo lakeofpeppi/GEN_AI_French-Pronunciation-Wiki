@@ -155,7 +155,7 @@ Yes. The graph above is the *after* version: G0 was added at ingest, G2 got a co
 
 - **S1** *Introduction to French Level I*, "Prononciation — Les bases du français 101" (Pressbooks, CC BY 4.0) · **S2** Duolingo Blog, "How to pronounce French" · **S3** Wikipedia, *French phonology* · **S4** Wikipedia, *Help:IPA/French* · **S5** Wikipedia, *French orthography* · **S6** Wikipedia, *Liaison (French)*. Details in [`raw/sources.md`](raw/sources.md).
 - Quotes are short, attributed, and used to back each claim. The source PDFs and their extracted text are **not** in this repo (copyright); they stay on my computer.
-- I built this with an AI assistant (Claude). The topic, the interview answers, the human checks and the final calls are mine, and the logs show every step, including the ones that failed.
+- I built this project myself, using an AI (Chatgpt) tutor whenever I got stuck, felt lost, or needed guidance throughout the development process.
 
 ## Re-run it
 
